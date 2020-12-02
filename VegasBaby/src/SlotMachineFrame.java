@@ -21,10 +21,14 @@ import javax.swing.JTextField;
  * Class that set ups the frame of the Vegas Game
  */
 public class SlotMachineFrame extends JFrame {
+    private TileChecker tileChecker;
+    private TileRandomizer tileRandomizer;
     private TilePanel pan;
-    private String balance = "5.00";
+    private String balance = "";
+    private String haveMoney = "true";
     /**
      * sets the look of the frame and gui that is display for the game
+     * also sets up the menu bar that contains file and help menus. File contains Load Tiles, Save Tiles, Print, Restart, Exit. Help contains About.
      * @param title is the title of the frame
      * @param left is how far the frame is from the left
      * @param top is how far the frame is from the top
@@ -48,15 +52,127 @@ public class SlotMachineFrame extends JFrame {
         panSouth.add(btnMin);
         panSouth.add(new JLabel("$"));
         JTextField txtMoney = new JTextField(5);
-        txtMoney.setText(balance);
+        txtMoney.setText("5.00");
+        /**
+         * Action for pressing the max button
+         */
+        btnMax.addActionListener(new ActionListener (){
+            public void actionPerformed(ActionEvent e) {
+                if (txtMoney.getText().equalsIgnoreCase("0.00") || txtMoney.getText().equalsIgnoreCase("0.0") || txtMoney.getText().equalsIgnoreCase("0")) {
+                        haveMoney = "false";
+                    } else {
+                        haveMoney = "true";
+                    }
+                    if (haveMoney.equalsIgnoreCase("true")) {
+                    boolean test;
+                    boolean test2;
+                    double mult;
+                    ArrayList<Tile> tiles = pan.getTiles();
+                    tileRandomizer = new TileRandomizer();
+                    tileRandomizer.tileRandomizer(tiles);
+                    repaint();
+                    tileChecker = new TileChecker();
+                    test = tileChecker.tileCheckerShape(tiles);
+                    test2 = tileChecker.tileCheckerColor(tiles);
+                    balance = txtMoney.getText();
+                    double balance2 = Double.parseDouble(balance);
+                    if (test && test2) {
+                        mult = 100;
+                    }
+                    else if (test2 && !test){
+                        mult = 25;
+                    } else {
+                        mult = 0;
+                    }
+                    balance2 = balance2 * mult;
+                    String balance = String.valueOf(balance2);
+                    txtMoney.setText(balance);
+                    }
+                    else {}
+            }
+        });
+        /**
+         * Action for pressing the mid button
+         */
+        btnMid.addActionListener(new ActionListener (){
+            public void actionPerformed(ActionEvent e) {
+                if (txtMoney.getText().equalsIgnoreCase("0.00") || txtMoney.getText().equalsIgnoreCase("0.0") || txtMoney.getText().equalsIgnoreCase("0")) {
+                    haveMoney = "false";
+                } else {
+                    haveMoney = "true";
+                }
+                if (haveMoney.equalsIgnoreCase("true")) {
+                boolean test;
+                boolean test2;
+                double mult;
+                ArrayList<Tile> tiles = pan.getTiles();
+                tileRandomizer = new TileRandomizer();
+                tileRandomizer.tileRandomizer(tiles);
+                repaint();
+                tileChecker = new TileChecker();
+                test = tileChecker.tileCheckerShape(tiles);
+                test2 = tileChecker.tileCheckerColor(tiles);
+                balance = txtMoney.getText();
+                double balance2 = Double.parseDouble(balance);
+                double wager = balance2/2;
+                balance2 = balance2 - wager;
+                if (test && test2) {
+                    mult = 50;
+                }
+                else if (test2 && !test){
+                    mult = 10;
+                } else {
+                    mult = 0;
+                }
+                balance2 = balance2 + wager * mult;
+                String balance = String.valueOf(balance2);
+                txtMoney.setText(balance);
+                }
+                else {}
+            }
+        });
+        /**
+         * Action for pressing the min button
+         */
+        btnMin.addActionListener(new ActionListener (){
+            public void actionPerformed(ActionEvent e) {
+                if (txtMoney.getText().equalsIgnoreCase("0.00") || txtMoney.getText().equalsIgnoreCase("0.0") || txtMoney.getText().equalsIgnoreCase("0")) {
+                    haveMoney = "false";
+                } else {
+                    haveMoney = "true";
+                }
+                if (haveMoney.equalsIgnoreCase("true")) {
+                boolean test;
+                boolean test2;
+                double mult;
+                ArrayList<Tile> tiles = pan.getTiles();
+                tileRandomizer = new TileRandomizer();
+                tileRandomizer.tileRandomizer(tiles);
+                repaint();
+                tileChecker = new TileChecker();
+                test = tileChecker.tileCheckerShape(tiles);
+                test2 = tileChecker.tileCheckerColor(tiles);
+                balance = txtMoney.getText();
+                double balance2 = Double.parseDouble(balance);
+                double wager = balance2 * .1;
+                balance2 = balance2 - wager;
+                if (test && test2) {
+                    mult = 10;
+                }
+                else if (test2 && !test){
+                    mult = 5;
+                } else {
+                    mult = 0;
+                }
+                balance2 = balance2 + wager * mult;
+                String balance = String.valueOf(balance2);
+                txtMoney.setText(balance);
+                }
+                else {}
+            }
+        });
         panSouth.add(txtMoney);
         c.add(panSouth,BorderLayout.SOUTH);
-        setupMenu();
-    }
-    /**
-     * sets up the menu bar that contains file and help menus. File contains Load Tiles, Save Tiles, Print, Restart, Exit. Help contains About.
-     */
-    public void setupMenu() {
         JMenuBar mbar = new JMenuBar();
         JMenu mnuFile = new JMenu("File");
         JMenuItem miLoad = new JMenuItem("Load Tiles");
@@ -102,8 +218,28 @@ public class SlotMachineFrame extends JFrame {
         });
         mnuFile.add(miSave);
         JMenuItem miPrint = new JMenuItem("Print");
+        /**
+         * Action for pressing the print item
+         */
+        miPrint.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<Tile> tiles = pan.getTiles();
+                for (Tile tile : tiles) {
+                    System.out.println(tile);
+                }
+            }
+        });
         mnuFile.add(miPrint);
         JMenuItem miRestart = new JMenuItem("Restart");
+        /**
+         * Action for pressing the restart item
+         */
+        miRestart.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                txtMoney.setText("5.00");
+                haveMoney = "true";
+            }
+        });
         mnuFile.add(miRestart);
         JMenuItem miExit = new JMenuItem("Exit");
         /**
@@ -129,6 +265,7 @@ public class SlotMachineFrame extends JFrame {
         mnuHelp.add(miAbout);
         mbar.add(mnuHelp);
         setJMenuBar(mbar);
+
     }
     /**
      * setting up and calling the frame into existence

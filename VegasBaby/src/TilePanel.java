@@ -60,7 +60,7 @@ public class TilePanel extends JPanel implements MouseListener {
     /**
      * function to randomly set the color and shape of the tile
      */
-    public void setRandomly() {
+    public void F() {
         Random rnd = new Random();
         int rand1 = rnd.nextInt(4);
         int rand2 = rnd.nextInt(2);
@@ -74,13 +74,16 @@ public class TilePanel extends JPanel implements MouseListener {
     public TilePanel() {
         tiles = new ArrayList<Tile>();
         Tile tile1 = new Tile(0,0);
+        Tile tile2 = new Tile(0,0);
+        Tile tile3 = new Tile(0,0);
+        Tile tile4 = new Tile(0,0);
         tiles.add(tile1);
-        Tile tile2 = new Tile(1,4);
         tiles.add(tile2);
-        Tile tile3 = new Tile(1,3);
         tiles.add(tile3);
-        Tile tile4 = new Tile(1,3);
         tiles.add(tile4);
+        TileRandomizer tileRandomizer = new TileRandomizer();
+        tileRandomizer.tileRandomizer(tiles);
+        
         addMouseListener(this);
     }
     /**

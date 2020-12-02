@@ -48,10 +48,20 @@ public class TileReader {
             return null;
         }
     }
+    /**
+     * reads the binary from the file
+     * @param fname is the name of the file
+     * @return is the binary read from the file
+     */
     public ArrayList<Tile> readFromBinary(String fname) {
         File f = new File(fname);
         return readFromBinary(f);
     }
+    /**
+     * puts the binary into the file
+     * @param fname is the name of the file
+     * @return is the text put into the Array List
+     */
     public ArrayList<Tile> readFromBinary(File f) {
         try {
             FileInputStream fis = new FileInputStream(f);
@@ -62,10 +72,20 @@ public class TileReader {
             return null;
         }
     }
+    /**
+     * reads the XML from the file
+     * @param fname is the name of the file
+     * @return is the XML read from the file
+     */
     public ArrayList<Tile> readFromXML(String fname) {
         File f = new File(fname);
         return readFromText(f);
     }
+    /**
+     * puts the XML into the file
+     * @param f is the name of the file
+     * @return is the XML put into the array list
+     */
     public ArrayList<Tile> readFromXML(File f) {
         try {
             XMLDecoder dec = new XMLDecoder(
@@ -77,10 +97,20 @@ public class TileReader {
             return null;
         }
     }
+    /**
+     * Determine the file type
+     * @param fname is the name of the file
+     * @return the type of file
+     */
     public ArrayList<Tile> read(String fname) {
         File f = new File(fname);
         return read(f);
     }
+    /**
+     * Reads the ending of the file type and determines what file it is
+     * @param f is the name of the file
+     * @return which file type
+     */
     public ArrayList<Tile> read(File f) {
         String fname = f.getName().toUpperCase();
         if (fname.endsWith("BIN")) {

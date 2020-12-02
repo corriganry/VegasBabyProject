@@ -42,10 +42,22 @@ public class TileWriter {
             return false;
         }
     }
+    /**
+     * writes the color and shapes to a binary file
+     * @param fname is the name of the file
+     * @param tiles are the tiles that are found in the program
+     * @return is the call to the function to write the color and shape to file
+     */
     public boolean writeToBinary(String fname, ArrayList<Tile> tiles) {
         File f = new File(fname);
         return writeToBinary(f,tiles);
     }
+    /**
+     * function that actually writes the binary into the file
+     * @param f is the file name
+     * @param tiles are the tiles that are found in the program
+     * @return is the indicator if the file save was successful or not
+     */
     public boolean writeToBinary(File f, ArrayList<Tile> tiles) {
         try {
             FileOutputStream fos = new FileOutputStream(f);
@@ -58,10 +70,22 @@ public class TileWriter {
             return false;
         }
     }
+    /**
+     * writes the color and shapes to a XML file
+     * @param fname is the name of the file
+     * @param tiles are the tiles that are found in the program
+     * @return is the call to the function to write the color and shape to the file
+     */
     public boolean writeToXML(String fname, ArrayList<Tile> tiles) {
         File f = new File(fname);
         return writeToXML(f, tiles);
     }
+    /**
+     * function that actually writes the XML into the file
+     * @param f is the name of the file
+     * @param tiles are the tiles that are found in the program
+     * @return is the indicator if the file save was successful or not
+     */
     public boolean writeToXML(File f, ArrayList<Tile> tiles) {
         try {
             XMLEncoder enc = new XMLEncoder(new
@@ -73,10 +97,22 @@ public class TileWriter {
             return false;
         }
     }
+    /**
+     * function that finds the type of file
+     * @param fname is the name of the file
+     * @param tiles are the tiles that are found in the program
+     * @return is the type of file
+     */
     public boolean write(String fname, ArrayList<Tile> tiles) {
         File f = new File(fname);
         return write(f, tiles);
     }
+    /**
+     * function that determines what type of file it is
+     * @param f is the name of the file
+     * @param tiles are the tiles that are found in the program
+     * @return is the type of file
+     */
     public boolean write(File f, ArrayList<Tile> tiles) {
         String fname = f.getName().toUpperCase();
         if (fname.endsWith("BIN")) {
